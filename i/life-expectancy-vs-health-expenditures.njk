@@ -1,0 +1,193 @@
+---
+layout: main.njk
+title: Life Expectancy vs Health Expenditure
+description: How much do countries spend and for how long do their citizens live?
+date: 2024-09-18
+---
+
+<div id="chart"></div>
+
+<div id="controls">
+  <label for="year-select">Select Year: </label>
+  <select id="year-select">
+    <option value="all">All Years</option>
+    <option value="2022">2022</option>
+    <option value="2021">2021</option>
+    <option value="2020">2020</option>
+    <option value="2019">2019</option>
+    <option value="2018">2018</option>
+    <option value="2017">2017</option>
+    <option value="2016">2016</option>
+    <option value="2015">2015</option>
+    <option value="2014">2014</option>
+    <option value="2013">2013</option>
+    <option value="2012">2012</option>
+    <option value="2011">2011</option>
+    <option value="2010">2010</option>
+  </select>
+  <button id="toggle">All Off</button>
+</div>
+
+<p>Health expenditure includes all financing schemes and covers all aspects of healthcare. This data is adjusted for inflation and
+  differences in the cost of living between countries.</p>
+
+<p>Source: UN, World Population Prospects (2024); OECD Health Expenditure and Financing Database (2023)</p>
+
+<script>
+const fontFamily = SERIF;
+let allSeriesVisible = true;
+
+// Highcharts scatter plot configuration
+
+function convertDataToSeries(dataArray, topN, highlightYear) {
+  const countries = [
+    "Canada", "France", "Germany", "Italy", "Japan", "United Kingdom", "United States", // G7 countries
+    "Argentina", "Brazil", "China", "Colombia", "India", "Israel", "Mexico", "Peru",
+    "Poland", "South Africa", "South Korea", "Spain", "Turkey"
+  ];
+
+  const countriesSet = new Set(countries);
+
+  const seriesMap = {};
+
+  // Step 3: Convert to series format, but only for the top entities by population in 2023
+  dataArray.forEach(item => {
+    const entity = item["Entity"];
+    const healthExpenditure = parseFloat(item["Health expenditure per capita - Total"]);
+    const lifeExpectancy = parseFloat(item["Life expectancy - Sex: all - Age: 0 - Variant: estimates"]);
+    const year = parseInt(item["Year"], 10);
+
+    if (highlightYear !== "all" && year !== highlightYear) {
+      return;
+    }
+
+    // Proceed only if the entity is in the top entities list and data is valid
+    if (countriesSet.has(entity) && !isNaN(healthExpenditure) && !isNaN(lifeExpectancy)) {
+      if (!seriesMap[entity]) {
+        seriesMap[entity] = {
+          name: entity,
+          data: [],
+          lineWidth: 1,
+          marker: {
+            symbol: 'circle',
+            radius: 2,
+          }
+        };
+      }
+
+      // Add the point to the entity's data array, highlight the selected year if applicable
+      seriesMap[entity].data.push({
+        x: Math.round(healthExpenditure), // Round health expenditure to a whole dollar
+        y: Math.round(lifeExpectancy), // Round life expectancy to a whole year
+        year: year, // Add the year
+        marker: {
+          // fillColor: (highlightYear === "all" || year === highlightYear) ? 'red' : 'blue', // Highlight color for the selected year
+          radius: (year === highlightYear) ? 7 : 2 // Increase marker size for the selected year
+        }
+      });
+    }
+  });
+
+  // Convert the seriesMap object into an array of series
+  return Object.values(seriesMap);
+}
+
+function plot(series) {
+  const style = {
+    fontFamily,
+    color: 'rgb(55, 82, 93)',
+  };
+
+  const chart = Highcharts.chart('chart', {
+    colors: TAB20_COLORS,
+    chart: {
+      type: 'scatter',
+      zoomType: 'xy',
+      backgroundColor: '#fffffa',
+      spacingBottom: 20,
+      spacingTop: 20,
+      height: 600,
+      events: {
+        load: chartWatermark
+      }
+    },
+    title: {
+      text: 'Life Expectancy vs Health Expenditure',
+      style
+    },
+    xAxis: {
+      title: {
+        text: 'Health Expenditure per Capita (USD)',
+        style
+      },
+      labels: {
+        style
+      },
+      lineColor: 'rgb(55, 82, 93)',
+      tickColor: 'rgb(55, 82, 93)',
+    },
+    yAxis: {
+      title: {
+        text: 'Life Expectancy (years)',
+        style
+      },
+      labels: {
+        style
+      }
+    },
+    tooltip: {
+      headerFormat: '<b>{series.name}</b><br>',
+      pointFormat: 'Year: {point.year}<br>Health Expenditure: ${point.x}<br>Life Expectancy: {point.y} years',
+      style
+    },
+    credits: {
+      enabled: false
+    },
+    plotOptions: {
+      scatter: {
+        lineWidth: 1, // This adds lines between points
+        marker: {
+          radius: 5,
+          states: {
+            hover: {
+              enabled: true,
+              lineColor: 'rgb(100,100,100)'
+            }
+          }
+        },
+        states: {
+          hover: {
+            marker: {
+              enabled: false
+            }
+          }
+        }
+      }
+    },
+    series,
+  });
+
+  document.getElementById('toggle').addEventListener('click', function () {
+      if (allSeriesVisible) {
+          toggleAllSeriesOff(chart);
+          this.textContent = 'All On'; // Change button text
+      } else {
+          toggleAllSeriesOn(chart);
+          this.textContent = 'All Off'; // Change button text
+      }
+      allSeriesVisible = !allSeriesVisible; // Toggle the visibility state
+  });
+}
+
+async function load() {
+  const d = await csvToJson('/data/life-expectancy-vs-health-expenditure.csv');
+  const highlightYear = document.getElementById("year-select").value === "all" ? "all" : parseInt(document.getElementById("year-select").value, 10);
+  plot(convertDataToSeries(d, 20, highlightYear));
+}
+
+// Add an event listener for the year selection dropdown
+document.getElementById("year-select").addEventListener("change", load);
+
+// Initial load with all years
+load();
+</script>

@@ -1,0 +1,291 @@
+
+:root {
+  --color-theme-bg-pop: #f1de71;
+  --background-pop: #f1de71;
+  --color-theme-bg-web: #f5fcff;
+  --cover-bg-color: #f5fcff;
+  --background-pop-darken: #efd95a;
+  --print-on-pop: #363737;
+  --color-theme-bg-pop-darken: #efd95a;
+  --color-theme-print-on-pop: #363737;
+  --border-subtle: rgba(196, 202, 204, 0.5);
+  --background-subtle: rgba(253, 250, 234, 0.4);
+  --print-pop: hsl(51.09375, 82.05128205128206%, 40%);
+  --color-theme-accent: hsl(51.09375, 82.05128205128206%, 40%);
+  --cover-print-primary: #363737;
+  --cover-print-secondary: #757575;
+  --cover-print-tertiary: #b6b6b6;
+  --cover-border-color: #f1de71;
+  --sans-serif: 'SF Pro Display', -apple-system, system-ui, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --serif: 'Noto Serif', serif;
+  --font-weight-headings-preset: 700;
+  --font-family-body-preset: Spectral, sans-serif;
+  --font-weight-body-preset: 400;
+  --font-size-body-offset: 1px;
+  --font-preset-heading: sans;
+  --font-preset-body: classic-serif;
+  --home-hero: newspaper;
+  --home-posts: grid;
+  --home-show-top-posts: true;
+  --web-bg-color: #f5fcff;
+  --background-contrast-1: #e6edf0;
+  --color-theme-bg-contrast-1: #e6edf0;
+  --background-contrast-2: #d4dadd;
+  --color-theme-bg-contrast-2: #d4dadd;
+  --background-contrast-3: #b0b5b7;
+  --color-theme-bg-contrast-3: #b0b5b7;
+  --background-contrast-4: #8d9192;
+  --color-theme-bg-contrast-4: #8d9192;
+  --background-contrast-5: #4d5051;
+  --color-theme-bg-contrast-5: #4d5051;
+  --color-theme-detail: #dde3e6;
+  --background-contrast-pop: rgba(241, 222, 113, 0.4);
+  --color-theme-bg-contrast-pop: rgba(241, 222, 113, 0.4);
+  --input-background: #f6fcff;
+  --cover-input-background: #f6fcff;
+  --tooltip-background: #181919;
+  --web-bg-color-h: 197.99999999999994;
+  --web-bg-color-s: 100%;
+  --web-bg-color-l: 98.03921568627452%;
+  --print-on-web-bg-color: hsl(197.99999999999994, 25.688073394495408%, 29.03921568627451%);
+  --print-secondary-on-web-bg-color: #828687;
+  --selected-comment-background-color: #f4f6f3;
+  --background-pop-rgb: 241, 222, 113;
+  --background-pop-rgb-pc: 241 222 113;
+  --color-theme-bg-pop-rgb: 241, 222, 113;
+  --color-theme-bg-pop-rgb-pc: 241 222 113;
+  --border-default: 1px solid var(--color-utility-detail);
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 9999px;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-heavy: 800;
+}
+
+* {
+  margin: 0;
+}
+
+:root {
+  --dark-color: rgb(55, 82, 93);
+  --light-color: rgb(245, 252, 255)
+}
+
+html {
+  background: var(--light-color);
+}
+
+body {
+  color: var(--dark-color);
+  font-family: var(--serif);
+  font-kerning: auto;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-family-body, var(--font-family-body-preset, 'Spectral', serif, var(--font-family-text)));
+  font-weight: var(--font-weight-body-preset, 400);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  -webkit-appearance: optimizelegibility;
+  -moz-appearance: optimizelegibility;
+  appearance: optimizelegibility;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+h2 {
+  color: rgb(130, 134, 135);
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 22.5px;
+  font-weight: 700;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+
+
+.topbar {
+  border-bottom: 1px solid #dde3e6;
+}
+.navbar-logo {
+  height: 40px;
+}
+
+.topbar-content {
+  font-family: var(--sans-serif);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 20px;
+  align-items: center;
+  text-size-adjust: 100%;
+
+}
+
+.navbar-title {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.24px;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+  text-size-adjust: 100%;
+  font-weight: 700;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.navbar-title > a {
+  color: var(--dark-color);
+  text-decoration: none;
+}
+.navbar-title > a:hover {
+  text-decoration: none;
+}
+
+.navbar-buttons {
+  flex-shrink: 0;
+  align-items: center;
+  display: flex;
+  gap: var(--size-8);
+}
+
+
+.subscribe-button {
+  font-family: var(--sans-serif);
+  color: var(--dark-color);
+  background-color: rgb(241, 222, 113);
+  gap: 8px;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  display: inline-block;
+  padding: 0 12px;
+  align-items: center;
+  box-sizing: border-box;
+  font-stretch: 100%;
+}
+
+.subscribe-button:hover {
+  background-color: rgb(240, 220, 104);
+  text-decoration: none;
+}
+
+main {
+  padding-top: 32px;
+  width: 728px;
+  min-width: 280px;
+  margin: 0 auto;
+  overflow-wrap: break-word;
+}
+
+main > h1 {
+  font-family: var(--sans-serif)  ;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+main > h2 {
+  font-family: var(--sans-serif);
+  font-size: 18px;
+  color: rgb(130, 134, 135);
+  font-weight: 400;
+  line-height: 24px;
+  margin-top: 12px;
+}
+
+main > .published-at {
+  color: rgb(130, 134, 135);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500px;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  font-family: "SF Compact", -apple-system, system-ui, -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  padding: 16px 0;
+  border-bottom: 1px solid #dde3e6;
+  margin-bottom: 16px;
+}
+
+main > img {
+  border-radius: 4px;
+  margin-bottom: 32px;
+}
+
+p {
+  font-family: var(--serif);
+  line-height: 32px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+a {
+  color: rgb(186, 161, 18);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+li {
+  font-family: var(--serif);
+  line-height: 32px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+footer {
+  text-align: center;
+  color: rgb(130, 134, 135);
+  background-color: rgb(230, 237, 240);
+  border-top: 1px solid rgb(221, 227, 230);
+  font-size: 14px;
+  font-family: var(--sans-serif);
+  text-align: center;
+  line-height: 20px;
+  padding: 32px 0;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a {
+  color: rgb(130, 134, 135);
+  text-decoration: underline;
+}
+
+
+#chart {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
